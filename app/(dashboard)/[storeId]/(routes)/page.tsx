@@ -1,0 +1,18 @@
+import Store from "@/models/user.model";
+
+interface DashboardPageProps {
+  params: { storeId: string };
+}
+
+const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
+  console.log(params.storeId);
+  const store = await Store.findOne({ _id: params.storeId });
+  return (
+    <div>
+      <h1>This is a Dashboard</h1>
+      <p>Active Store : {store?.storeName}</p>
+    </div>
+  );
+};
+
+export default DashboardPage;

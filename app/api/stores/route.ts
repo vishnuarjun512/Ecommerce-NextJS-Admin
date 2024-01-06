@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server"
 
 import { auth } from "@clerk/nextjs";
-import prismadb from "@/lib/prismadb";
+import {connect} from "@/db/connection"
+import Store from "@/models/user.model";
 
+connect();
 export async function POST(req:Request){
     try {
         const {userId} = auth()
@@ -17,14 +19,12 @@ export async function POST(req:Request){
             return new NextResponse("Name is required", {status:400});
         }
 
-        const store = await prismadb.store.create({
-            data:{
-                name,
-                userId
-            }
+        const newStore = await Store.create({
+            storeName: name,
+            userId
         })
 
-        return NextResponse.json(store, {status:200})
+        return NextResponse.json(newStore, {status:200})
 
     } catch (error) {
         console.log(`[STORES_POST]`,error)
