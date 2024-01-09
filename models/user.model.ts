@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const storeSchema = new mongoose.Schema({
+export const storeSchema = new mongoose.Schema({
     storeName: {
         type: String,
         required: [true, "Please Provide a storename"],
@@ -8,9 +8,24 @@ const storeSchema = new mongoose.Schema({
     userId:{
         type:String,
         required:[true, "Please Provide a User Id"]
-    }
+    },
+    billboards: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:"Billboard"
+        }
+    ]
+    
 }, { timestamps: true });
 
-const Store = mongoose.models.Store || mongoose.model("Store", storeSchema);
+// Define the StoreDocument type
+export type StoreDocument = Document & {
+    storeName: string;
+    userId: string;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+
+const Store = mongoose.models.Store || mongoose.model<StoreDocument>("Store", storeSchema);
 
 export default Store;

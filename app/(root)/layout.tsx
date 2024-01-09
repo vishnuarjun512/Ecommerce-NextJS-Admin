@@ -12,13 +12,13 @@ export default async function SetupLayout({
   const { userId } = auth();
 
   if (!userId) {
-    redirect(`/sign-in`);
+    return redirect(`/sign-in`);
   }
 
   const store = await Store.findOne({ userId });
 
-  if (store) {
-    redirect(`/${store._id}`);
+  if (store !== null) {
+    redirect(`/${store?._id!}`);
   }
 
   return <>{children}</>;

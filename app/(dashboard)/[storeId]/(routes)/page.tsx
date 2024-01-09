@@ -5,7 +5,6 @@ interface DashboardPageProps {
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
-  console.log(params.storeId);
   const store = await Store.findOne({ _id: params.storeId });
   return (
     <div>
