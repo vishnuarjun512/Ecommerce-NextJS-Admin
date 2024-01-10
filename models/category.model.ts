@@ -22,8 +22,9 @@ export type CategoryDocument = Document & {
 
 // Check if the model is already defined
 const existingModel = mongoose.models.Category as mongoose.Model<CategoryDocument>;
-
 // Ensure that the model is registered or get the existing model
-const Category = existingModel || mongoose.model<CategoryDocument>("Billboard", categorySchema);
+const Category = existingModel || mongoose.model<CategoryDocument>("Category", categorySchema);
+
+
 
 export default Category;
