@@ -1,4 +1,4 @@
-import Store from "@/models/user.model";
+import Store from "@/models/store.model";
 import Billboard from "@/models/billboard.model";
 
 import { auth } from "@clerk/nextjs"

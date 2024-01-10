@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Document } from "mongoose";
-import Store, { storeSchema } from "@/models/user.model";
+import Store, { storeSchema } from "@/models/store.model";
 
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { useParams, useRouter } from "next/navigation";

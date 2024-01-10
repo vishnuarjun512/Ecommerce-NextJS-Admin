@@ -1,6 +1,6 @@
 "use client";
 
-import { StoreDocument } from "@/models/user.model";
+import { StoreDocument } from "@/models/store.model";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

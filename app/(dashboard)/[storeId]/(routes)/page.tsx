@@ -1,4 +1,4 @@
-import Store from "@/models/user.model";
+import Store from "@/models/store.model";
 
 interface DashboardPageProps {
   params: { storeId: string };

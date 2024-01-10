@@ -2,7 +2,7 @@ import { UserButton, auth } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
 import MainNav from "@/components/MainNav";
 import StoreSwitcher from "@/components/StoreSwitcher";
-import Store from "@/models/user.model";
+import Store from "@/models/store.model";
 import { redirect } from "next/navigation";
 
 const Navbar = async () => {

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 export const storeSchema = new mongoose.Schema({
     storeName: {
         type: String,

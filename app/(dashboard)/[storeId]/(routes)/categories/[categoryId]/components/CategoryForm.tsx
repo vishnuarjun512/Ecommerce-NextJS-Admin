@@ -73,20 +73,18 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
     setLoading(true);
     try {
       if (initialData) {
-        console.log("Update data", data);
         await axios.patch(
-          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          `/api/${params.storeId}/categories/${params.categoryId}`,
           data
         );
       } else {
-        console.log("New data", data);
-        await axios.post(`/api/${params.storeId}/billboards`, data);
+        await axios.post(`/api/${params.storeId}/categories`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards/`);
+      router.push(`/${params.storeId}/categories/`);
       toast.success(textMessage);
     } catch (error: any) {
-      toast.error(`${initialData ? "Update" : "Creation"} Error -> `, error);
+      toast.error(`${initialData ? "Update" : "Creation"} Error -> ${error}`);
     } finally {
       setLoading(false);
     }
@@ -95,12 +93,12 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
   const onDelete = async () => {
     setLoading(true);
     try {
-      const res = await axios.delete(
-        `/api/${params.storeId}/billboards/${params.billboardId}`
+      await axios.delete(
+        `/api/${params.storeId}/categories/${params.categoryId}`
       );
-      toast.success("Billboard Deleted");
+      toast.success("Category Deleted");
       router.refresh();
-      router.push(`/${params.storeId}/billboards/`);
+      router.push(`/${params.storeId}/categories/`);
     } catch (error: any) {
       console.log("Error deleting", error.message);
       toast.error("Delete Error", error.message);

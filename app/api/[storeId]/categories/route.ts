@@ -2,22 +2,24 @@ import { NextResponse } from "next/server"
 
 import { auth } from "@clerk/nextjs";
 import {connect} from "@/db/connection"
-import Store from "@/models/user.model";
+import Store from "@/models/store.model";
 import Billboard from "@/models/billboard.model";
 import Category from "@/models/category.model";
 
 connect();
 export async function POST(req:Request, {params}: {params: {storeId: string}}){
     try {
+        console.log("Creating Category")
         const {userId} = auth() 
         if(!userId){
             return new NextResponse("Unauthenticated", {status:401});
         }
 
         const body = await req.json();
-        const {name,billBoardId} = body;
+      
+        const {name,billboardId} = body;
 
-        if(!billBoardId){
+        if(!billboardId){
             return new NextResponse("Billboard Id is required", {status:400});
         }
 
@@ -35,12 +37,12 @@ export async function POST(req:Request, {params}: {params: {storeId: string}}){
         })
 
         if(!storeById){
-            return new NextResponse("Unauthenticated", {status:401});
+            return new NextResponse("Unauthorized", {status:401});
         }
 
         const newCategory = await Category.create({
             name,
-            billBoardId,
+            billboardId,
             storeId: params.storeId,
         })
 
@@ -54,22 +56,19 @@ export async function POST(req:Request, {params}: {params: {storeId: string}}){
 
 export async function GET(req:Request, {params}: {params: {storeId: string}}){
     try {
-        const {userId} = auth()
-      
         if(!params.storeId){
             return new NextResponse("Params Store Id is required", {status:400});
         }
 
         const storeById = await Store.findOne({
             _id: params.storeId,
-            userId
         })
 
         if(!storeById){
             return new NextResponse("Unauthenticated", {status:401});
         }
 
-        const allCategories = await Billboard.find({
+        const allCategories = await Category.find({
             storeId: params.storeId,
         })
 

@@ -1,7 +1,7 @@
 import { connect } from "@/db/connection";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import Store from "@/models/user.model";
+import Store from "@/models/store.model";
 
 connect();
 export default async function SetupLayout({

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 
 import { auth } from "@clerk/nextjs";
 import {connect} from "@/db/connection"
-import Store from "@/models/user.model";
+import Store from "@/models/store.model";
 import Billboard from "@/models/billboard.model";
 
 connect();

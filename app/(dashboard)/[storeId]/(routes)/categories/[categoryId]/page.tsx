@@ -8,7 +8,6 @@ const CategoryIdPage = async ({
 }: {
   params: { categoryId: string; storeId: string };
 }) => {
-  console.log(params.categoryId);
   var category;
   if (params.categoryId == "undefined") {
     category = null;
@@ -27,7 +26,7 @@ const CategoryIdPage = async ({
     <div className="flex flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <CategoryForm
-          billboards={billboards}
+          billboards={billboardSimpleObject}
           initialData={categorySimpleObject}
         />
       </div>
