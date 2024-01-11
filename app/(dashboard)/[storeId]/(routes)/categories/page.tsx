@@ -15,7 +15,7 @@ import { ApiList } from "@/components/ui/api-list";
 const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
   const categories = await Category.find({
     storeId: params.storeId,
-  });
+  }).populate("billboardId");
 
   //Simple Object Creation from categories fetch
   const categorieSimpleObject = JSON.parse(JSON.stringify(categories));
@@ -24,7 +24,7 @@ const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
     (item: any) => ({
       id: item._id,
       name: item.name,
-      billboardId: item.billboardId,
+      billboardId: item.billboardId.label,
       createdAt: format(item.createdAt, "MMMM do, yyyy"),
     })
   );
