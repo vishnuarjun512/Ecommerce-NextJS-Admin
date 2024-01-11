@@ -11,12 +11,12 @@ const orderItemSchema = new mongoose.Schema({
     }
 }, { timestamps:true })
 
-export type orderItemDocument = Document & {
+export type OrderItemDocument = Document & {
     _id:string,
     orderId: string,
     productId:string,
 }
 
-const orderItem = mongoose.models.Product as mongoose.Model<orderItemDocument> || mongoose.model("orderItem", orderItemSchema);
+const orderItem = mongoose.models.OrderItem as mongoose.Model<OrderItemDocument> || mongoose.model("OrderItem", orderItemSchema);
 
 export default orderItem;

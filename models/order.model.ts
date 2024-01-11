@@ -14,6 +14,12 @@ const orderSchema = new mongoose.Schema({
     address:{
         type:String,
     },
+    orderItems:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"OrderItem"
+        }
+    ]
 
 }, { timestamps:true })
 
@@ -25,6 +31,6 @@ export type OrderDocument = Document & {
     address:string,
 }
 
-const Order = mongoose.models.Product as mongoose.Model<OrderDocument> || mongoose.model("Order", orderSchema);
+const Order = mongoose.models.Order as mongoose.Model<OrderDocument> || mongoose.model("Order", orderSchema);
 
 export default Order;
