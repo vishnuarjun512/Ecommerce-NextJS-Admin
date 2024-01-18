@@ -17,6 +17,6 @@ export type OrderItemDocument = Document & {
     productId:string,
 }
 
-const orderItem = mongoose.models.OrderItem as mongoose.Model<OrderItemDocument> || mongoose.model("OrderItem", orderItemSchema);
+const OrderItem = mongoose.models.OrderItem as mongoose.Model<OrderItemDocument> || mongoose.model("OrderItem", orderItemSchema);
 
-export default orderItem;
+export default OrderItem;

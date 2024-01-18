@@ -8,23 +8,21 @@ import Heading from "@/components/ui/Heading";
 import { ApiList } from "@/components/ui/api-list";
 import { formatter } from "@/lib/utils";
 import Order from "@/models/order.model";
+import giveOrderDetails from "@/actions/giveOrderDetails";
+import { ApiAlert } from "@/components/ui/api-alert";
+import { getBaseUrl, useOrigin } from "@/hooks/use-origin";
+import { useParams } from "next/navigation";
+import OrderApi from "./components/OrderApi";
 
 const Orders = async ({ params }: { params: { storeId: string } }) => {
-  const orders = await Order.find({
-    storeId: params.storeId,
-  }).populate({
-    path: "orderItems",
-    populate: {
-      path: "orderId",
-      model: "order",
-    },
-  });
+  const orders = await giveOrderDetails(params.storeId);
 
   //Simple Object Creation from orders fetch
   const orderSimpleObject = JSON.parse(JSON.stringify(orders));
 
   const formattedorders: OrderColumn[] = orderSimpleObject.map((item: any) => ({
     id: item._id,
+    name: item.name,
     phone: item.phone,
     address: item.address,
     products: item.orderItems
@@ -37,7 +35,7 @@ const Orders = async ({ params }: { params: { storeId: string } }) => {
         0
       )
     ),
-
+    isPaid: item.isPaid,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));
 
@@ -46,11 +44,8 @@ const Orders = async ({ params }: { params: { storeId: string } }) => {
       <div className="flex-1 space-y-4 p-8 pt-6">
         <OrderClient data={formattedorders} />
         <Separator />
-
         <DataTable searchKey="phone" columns={columns} data={formattedorders} />
-        <Heading title="API's" description="API calls for Orders" />
-        <Separator />
-        <ApiList entityName="orders" entityIdName="orderId" />
+        <OrderApi />
       </div>
     </div>
   );

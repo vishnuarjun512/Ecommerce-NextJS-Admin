@@ -36,8 +36,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
       toast.success("Billboard Deleted");
-      router.refresh();
       router.push(`/${params.storeId}/billboards/`);
+      router.refresh();
     } catch (error: any) {
       console.log("Error deleting", error.message);
       toast.error("Delete Error", error.message);

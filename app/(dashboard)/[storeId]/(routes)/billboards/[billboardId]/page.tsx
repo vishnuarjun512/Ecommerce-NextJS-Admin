@@ -7,7 +7,6 @@ const BillboardPage = async ({
 }: {
   params: { billboardId: string };
 }) => {
-  console.log(params.billboardId);
   var billboard;
   if (params.billboardId == "undefined") {
     billboard = null;

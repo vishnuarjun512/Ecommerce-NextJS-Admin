@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { OrderItemDocument } from "./orderItem.model";
 
 const orderSchema = new mongoose.Schema({
     storeId:{
@@ -7,6 +8,9 @@ const orderSchema = new mongoose.Schema({
     },
     isPaid:{
         type:Boolean,
+    },
+    name:{
+        type:String,
     },
     phone :{
         type:String,
@@ -19,16 +23,19 @@ const orderSchema = new mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:"OrderItem"
         }
-    ]
+    ],
 
 }, { timestamps:true })
 
 export type OrderDocument = Document & {
     _id:string,
+    name:string,
     storeId: string,
     isPaid:boolean,
     phone:string,
     address:string,
+    orderItems: OrderItemDocument[],
+    createdAt:string,
 }
 
 const Order = mongoose.models.Order as mongoose.Model<OrderDocument> || mongoose.model("Order", orderSchema);

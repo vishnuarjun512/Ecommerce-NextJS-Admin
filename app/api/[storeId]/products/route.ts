@@ -5,6 +5,7 @@ import {connect} from "@/db/connection"
 import Store from "@/models/store.model";
 import Category from "@/models/category.model";
 import Product from "@/models/product.model";
+import { all } from "axios";
 
 connect();
 export async function POST(req:Request, {params}: {params: {storeId: string}}){
@@ -77,14 +78,31 @@ export async function GET(req:Request, {params}: {params: {storeId: string}}){
             _id: params.storeId,
         })
 
+        const {searchParams} = new URL(req.url);
+        const categoryId = searchParams.get("categoryId") || undefined
+        const isFeatured = searchParams.get("isFeatured") || undefined
+
         if(!storeById){
             return new NextResponse("Unauthorized", {status:401});
         }
 
-        const allProducts = await Product.find({
+        const filter: { storeId: string, categoryId?: string, isFeatured?: boolean, isArchieved: boolean } = {
             storeId: params.storeId,
-        })
+            isArchieved: false,
+        };
 
+         // Conditionally include categoryId filter
+         if (categoryId !== undefined) {
+            filter.categoryId = categoryId;
+        }
+
+        // Conditionally include isFeatured filter
+        if (isFeatured !== undefined) {
+            filter.isFeatured = true;
+        }
+
+        const allProducts = await Product.find(filter).populate("categoryId").sort({createdAt: -1});
+        
         return NextResponse.json(allProducts, {status:200})
 
     } catch (error) {

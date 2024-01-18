@@ -91,8 +91,8 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       toast.success("Billboard Deleted");
-      router.refresh();
       router.push(`/${params.storeId}/billboards/`);
+      router.refresh();
     } catch (error: any) {
       console.log("Error deleting", error.message);
       toast.error("Delete Error", error.message);

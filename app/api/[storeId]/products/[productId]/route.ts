@@ -1,7 +1,3 @@
-import Store from "@/models/store.model";
-import Billboard from "@/models/billboard.model";
-import Category from "@/models/category.model";
-
 import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 import Product from "@/models/product.model";
@@ -9,15 +5,15 @@ import Product from "@/models/product.model";
 export async function GET(req:Request, {params}: {params: {storeId: string, productId:string}}){
     try {
         if(!params.productId){
+            console.log("ProductId not found in params")
             return new NextResponse("Product Id not found in Params", {status:400})
         }        
-    
         const product = await Product.findOne({
             _id:params.productId,
             storeId: params.storeId,
-        })
+        }).populate("categoryId");
+        
         return NextResponse.json(product, {status:200})
-
     } catch (error) {
         console.log("[PRODUCT_GET_ERROR]", error)
         return new NextResponse("Internal Error", {status:500});

@@ -9,6 +9,7 @@ interface ApiAlertProps {
   title: string;
   description: string;
   variant: "public" | "admin";
+  functionality?: string;
 }
 
 const textMap: Record<ApiAlertProps["variant"], string> = {
@@ -25,6 +26,7 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
   title,
   description,
   variant = "public",
+  functionality,
 }) => {
   const onCopy = (description: string) => {
     navigator.clipboard.writeText(description);
@@ -36,6 +38,7 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
       <AlertTitle className="flex items-center gap-x-2">
         {title}
         <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
+        <p>{functionality}</p>
       </AlertTitle>
       <AlertDescription className="mt-4 flex items-center justify-between">
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">

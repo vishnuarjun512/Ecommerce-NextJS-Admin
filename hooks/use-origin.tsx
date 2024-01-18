@@ -17,3 +17,8 @@ export const useOrigin = () => {
 
   return origin;
 };
+
+export const getBaseUrl = () => {
+  const origin = useOrigin();
+  return origin;
+};

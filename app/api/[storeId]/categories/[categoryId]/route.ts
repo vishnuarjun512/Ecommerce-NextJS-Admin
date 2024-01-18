@@ -4,6 +4,7 @@ import Category from "@/models/category.model";
 
 import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
+import Product from "@/models/product.model";
 
 export async function GET(req:Request, {params}: {params: {storeId: string, categoryId:string}}){
     try {
@@ -78,6 +79,8 @@ export async function DELETE(
         if(!params.categoryId){
             return new NextResponse("Category not found in Params", {status:400})
         }
+
+        const deletedProducts = await Product.deleteMany({categoryId:params.categoryId})
 
         const deletedCategory= await Category.findByIdAndDelete(params.categoryId)
      

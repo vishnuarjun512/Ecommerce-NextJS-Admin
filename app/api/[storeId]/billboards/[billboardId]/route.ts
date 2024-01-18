@@ -6,12 +6,13 @@ import { NextResponse } from "next/server"
 
 export async function GET(req:Request, {params}: {params: {storeId: string, billboardId:string}}){
     try {
+    
         if(!params.billboardId){
             return new NextResponse("Billboard Id not found in Params", {status:400})
         }        
     
         const billboard = await Billboard.findOne({
-            storeId: params.billboardId,
+            _id: params.billboardId,
         })
         return NextResponse.json(billboard, {status:200})
 
@@ -78,7 +79,7 @@ export async function DELETE(
         }
 
         const deletedBillboard= await Billboard.findByIdAndDelete(params.billboardId)
-        console.log(deletedBillboard)
+       
 
         return NextResponse.json({status:200, data:deletedBillboard,  message: "Billboard Deleted"})
 
